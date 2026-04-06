@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HLD FTTx - Guía Fiberlog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;900&display=swap');
+
+        :root {
+            --bg-deep: #010D23;             /* Azul profundo */
+            --card-navy: #03223F;           /* Azul marino */
+            --accent-blue: #038BBB;         /* Azul acento */
+            --gold-light: #FCCB6F;          /* Dorado claro */
+            --gold-dark: #E19F41;           /* Dorado oscuro */
+            --text-off-white: #f8fafc;      /* Blanco roto */
+            --text-gray-muted: #cbd5e1;     /* Gris slate-300 para contenido unificado */
+            --border-width: 3px; 
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-off-white);
+        }
+
+        * { border-radius: 0 !important; }
+
+        /* Estilos de la Barra Lateral */
+        .sidebar-link {
+            color: var(--text-off-white);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            border-left: 0 solid var(--accent-blue);
+        }
+
+        .sidebar-link:hover {
+            background-color: rgba(3, 139, 187, 0.15);
+            color: var(--gold-light);
+            opacity: 1;
+        }
+
+        .sidebar-link.active {
+            background-color: var(--accent-blue);
+            color: var(--bg-deep);
+            font-weight: 700;
+            border-left: 8px solid var(--gold-dark);
+            opacity: 1;
+        }
+
+        .section-content { display: none; }
+        .section-content.active { display: block; animation: fadeIn 0.5s ease-out; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        .section-card {
+            background: var(--card-navy);
+            padding: 2.5rem;
+            box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.4);
+            margin-bottom: 2rem;
+            border: none;
+            transition: transform 0.3s ease;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            border: var(--border-width) solid var(--accent-blue);
+        }
+
+        th {
+            background-color: rgba(3, 139, 187, 0.2);
+            text-align: center;
+            padding: 1rem;
+            border-bottom: var(--border-width) solid var(--accent-blue);
+            font-weight: 700;
+            color: var(--gold-light);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(3, 139, 187, 0.1);
+            background-color: var(--card-navy);
+            color: var(--text-off-white);
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .table-btn-row {
+            cursor: pointer;
+        }
+        
+        .table-btn-row:hover td {
+            background-color: var(--accent-blue) !important;
+            color: var(--bg-deep) !important;
+            font-weight: 700;
+        }
+
+        #modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(1, 13, 35, 0.95);
+            backdrop-filter: blur(4px);
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #modal-card {
+            background: var(--card-navy);
+            border: var(--border-width) solid var(--accent-blue);
+            max-width: 750px;
+            width: 90%;
+            padding: 2.5rem;
+            box-shadow: 20px 20px 0px rgba(0, 0, 0, 0.6);
+        }
+
+        #image-upload-container {
+            width: 100%;
+            height: 350px;
+            background: var(--bg-deep);
+            border: 2px dashed var(--accent-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        #preview-img { max-width: 100%; max-height: 100%; display: none; object-fit: contain; }
+
+        .interactive-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: var(--border-width) solid rgba(3, 139, 187, 0.3);
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .interactive-box:hover {
+            border-color: var(--gold-light);
+            background: rgba(3, 139, 187, 0.15);
+            transform: translate(-4px, -4px);
+            box-shadow: 4px 4px 0px var(--gold-light);
+        }
+
+        .stylized-final {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 400; /* Peso normal, sin negrita */
+            color: var(--gold-light);
+            font-style: italic;
+            border-top: 1px solid rgba(252, 203, 111, 0.2);
+            padding-top: 2.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Modal Técnico -->
+    <div id="modal-overlay" onclick="closeModal()">
+        <div id="modal-card" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
+                <h3 id="modal-title" class="text-2xl font-black text-[#FCCB6F] uppercase tracking-tighter">Detalle Técnico</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-[#FCCB6F] transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            
+            <div id="image-upload-container" onclick="document.getElementById('file-input').click()">
+                <div id="placeholder-content" class="text-center text-[#038BBB] font-bold uppercase text-xs tracking-widest">
+                    <svg class="w-12 h-12 mx-auto mb-4 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <p>Insertar imagen aquí</p>
+                </div>
+                <img id="preview-img" alt="Vista previa técnica">
+            </div>
+            <input type="file" id="file-input" accept="image/png" class="hidden" onchange="handleImageUpload(event)">
+
+            <div class="mt-6 max-h-60 overflow-y-auto pr-4 text-left">
+                <p id="modal-description" class="text-gray-100 leading-relaxed font-medium text-sm md:text-base border-l-4 border-[#038BBB] pl-6 py-2"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex min-h-screen">
+        <!-- Navegación Lateral -->
+        <aside class="w-72 bg-[#03223F] border-r border-[#038BBB]/30 hidden md:block fixed h-full z-10">
+            <div class="p-8 border-b border-[#038BBB]/20 text-center">
+                <div class="flex flex-col items-center gap-3">
+                    <div class="w-16 h-16 bg-[#038BBB] flex items-center justify-center text-[#010D23] font-bold text-4xl shadow-xl border-2 border-[#FCCB6F]">F</div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-[#FCCB6F] tracking-tighter uppercase">HLD FTT<span class="lowercase">x</span></h1>
+                        <p class="text-[10px] text-[#FCCB6F]/60 uppercase tracking-[0.25em] font-black">fiberlog guide - 2026</p>
+                    </div>
+                </div>
+            </div>
+            <nav id="sidebar" class="px-4 mt-8 space-y-4">
+                <button onclick="showSection('introduccion')" data-target="introduccion" class="sidebar-link active w-full text-left py-4 px-6 text-xs font-black uppercase tracking-widest">vision de ingenieria</button>
+                <button onclick="showSection('modulo1')" data-target="modulo1" class="sidebar-link w-full text-left py-4 px-6 text-xs font-black uppercase tracking-widest">Analisis de datos</button>
+                <button onclick="showSection('modulo2')" data-target="modulo2" class="sidebar-link w-full text-left py-4 px-6 text-xs font-black uppercase tracking-widest">Consideraciones generales</button>
+                <button onclick="showSection('modulo3')" data-target="modulo3" class="sidebar-link w-full text-left py-4 px-6 text-xs font-black uppercase tracking-widest">Criterios de diseño</button>
+            </nav>
+        </aside>
+
+        <main class="flex-1 md:ml-72 p-6 md:p-16">
+            
+            <!-- SECCIÓN: VISION DE INGENIERIA -->
+            <section id="introduccion" class="section-content active">
+                <header class="mb-10 text-center">
+                    <span class="inline-block border-4 border-[#038BBB] text-[#038BBB] px-12 py-4 font-black text-sm md:text-base uppercase tracking-[0.6em] mb-4 shadow-[10px_10px_0px_rgba(0,0,0,0.5)]">High Level Design</span>
+                </header>
+
+                <div class="mb-12 max-w-3xl mx-auto px-10">
+                    <p class="text-[#FCCB6F] text-xs md:text-sm font-black uppercase tracking-[0.3em] text-center leading-relaxed">
+                        "Diseñar una red escalable, mantenible y con un balance de potencia óptimo que responda a las necesidades actuales y futuras."
+                    </p>
+                </div>
+
+                <div class="px-10 space-y-10 text-slate-300 leading-relaxed max-w-5xl mx-auto text-center">
+                    <p class="text-xl">La visión de ingeniería en un diseño FTTx (Fiber-to-the-X) no se trata solo de desplegar cables de fibra óptica, sino de crear una infraestructura escalable, mantenible y económicamente viable. El objetivo principal es maximizar la cobertura y la velocidad minimizando la pérdida de señal (atenuación) y los costos de despliegue e infraestructura. Para alcanzar este equilibrio, la ingeniería debe abordar el diseño desde dos vertientes fundamentales: los límites físicos de transmisión y la configuración estructural de la red.</p>
+                    
+                    <p class="text-xl">El Presupuesto de Potencia Óptica (Link Budget) Es el cálculo más crítico y que a pesar que se vea mas en detalle en el LLD (Low Level Design) se debe tener en consideracion en la contabilidad del recorrido de fibra, pues una de las limitantes mas criticas es la distancia total para asegurar que la luz llegue desde la OLT (en la central) hasta la ONT (en casa del cliente) La ingeniería debe garantizar la intensidad de la luz suficiente considerando la distancia, derivaciones y que el recorrido no supere los 20km o 12 millas.</p>
+
+                    <p class="text-xl">La definición de la topología de la red según la ingeniería preliminar, determina la distribución óptica y la arquitectura de ramificación. La elección entre un modelo de división centralizada (un único nivel de división de alta capacidad) o una arquitectura en cascada (múltiples niveles de división distribuidos) altera significativamente el despliegue de la planta externa. Si bien la configuración en cascada optimiza el uso del cableado al reducir sustancialmente la cantidad de hilos de fibra, incrementa la complejidad técnica en la caracterización de eventos y la localización de averías.</p>
+                    
+                    <div class="stylized-final mt-12">
+                        <p class="text-lg">Se trata de construir la mejor red posible sin gastar de más, buscando que el despliegue sea técnicamente robusto y financieramente sostenible.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MÓDULO 1 -->
+            <section id="modulo1" class="section-content">
+                <div class="section-card">
+                    <h2 class="text-3xl font-black text-[#FCCB6F] mb-4 uppercase tracking-widest text-center">Identificar los Home Passed (HP)</h2>
+                    <p class="text-slate-400 mb-12 font-medium text-center">Categorización técnica de unidades inmobiliarias para el dimensionamiento de la red.</p>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <button onclick="openModal('unifamiliares')" class="interactive-box p-8 group">
+                            <h3 class="text-[#f8fafc] font-black text-xl mb-4 uppercase">Casas Unifamiliares</h3>
+                            <p class="text-xs text-[#E19F41] font-bold uppercase tracking-widest">Censo por Lote</p>
+                        </button>
+                        <button onclick="openModal('mdu')" class="interactive-box p-8 group">
+                            <h3 class="text-[#f8fafc] font-black text-xl mb-4 uppercase">Edificios (MDU)</h3>
+                            <p class="text-xs text-[#E19F41] font-bold uppercase tracking-widest">Conteo por Apartamento</p>
+                        </button>
+                        <button onclick="openModal('centros')" class="interactive-box p-8 group">
+                            <h3 class="text-[#f8fafc] font-black text-xl mb-4 uppercase">Centros Comerciales</h3>
+                            <p class="text-xs text-[#E19F41] font-bold uppercase tracking-widest">Dimensionado Local</p>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section-card text-center">
+                    <h2 class="text-3xl font-black text-[#FCCB6F] mb-6 uppercase tracking-widest">Relevamiento y Demanda</h2>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <button onclick="openModal('relevamiento')" class="interactive-box p-10">
+                            <h4 class="text-[#f8fafc] font-black text-xs uppercase mb-4 tracking-widest">Relevamiento de Campo</h4>
+                            <p class="text-slate-400 text-sm leading-relaxed font-bold uppercase">Identificación técnica de postes y handicaps.</p>
+                        </button>
+                        <button onclick="openModal('demanda')" class="interactive-box p-10">
+                            <h4 class="text-[#f8fafc] font-black text-xs uppercase mb-4 tracking-widest">Cálculo de Polígonos</h4>
+                            <p class="text-slate-400 text-sm leading-relaxed font-bold uppercase">Zonificación de densidad de clientes.</p>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MÓDULO 2 -->
+            <section id="modulo2" class="section-content">
+                <header class="mb-10 text-center flex flex-col items-center">
+                    <h2 class="text-5xl font-black text-white tracking-tighter uppercase">Consideraciones Generales</h2>
+                    <div class="h-2 w-48 bg-[#038BBB] mt-4"></div>
+                </header>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-black text-[#FCCB6F] mb-6 text-center uppercase tracking-[0.2em]">Topologías de Red</h3>
+                    <p class="text-slate-400 mb-12 font-medium text-center">La ingeniería define cómo se ramifica la fibra. La mayoría de los diseños modernos utilizan GPON o XGS-PON con una topología de Punto a Multipunto (P2MP).</p>
+                    <div class="grid md:grid-cols-2 gap-8 text-center mb-10">
+                        <button onclick="openModal('bus')" class="interactive-box p-8 group">
+                            <h4 class="font-black text-white text-xl mb-4 group-hover:text-[#FCCB6F] uppercase">Modelo BUS</h4>
+                        </button>
+                        <button onclick="openModal('estrella')" class="interactive-box p-8 group">
+                            <h4 class="font-black text-white text-xl mb-4 group-hover:text-[#FCCB6F] uppercase">Modelo Estrella</h4>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-black text-[#FCCB6F] mb-8 text-center uppercase tracking-[0.2em]">Jerarquía de Fibra Óptica</h3>
+                    <div class="overflow-x-auto">
+                        <table>
+                            <thead>
+                                <tr><th>Nivel</th><th>Hilos Comunes</th><th>Aplicación Técnica</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr onclick="openModal('fiber_feeder')" class="table-btn-row"><td>Alimentación (Backbone)</td><td>144, 288, 432, 864</td><td>CO a Armarios FDH / Nodos.</td></tr>
+                                <tr onclick="openModal('fiber_distribution')" class="table-btn-row"><td>Distribución (Red Secundaria)</td><td>48, 72, 96</td><td>FDH a puntos OTE / Cierres.</td></tr>
+                                <tr onclick="openModal('fiber_drop')" class="table-btn-row"><td>Drop (Acometida)</td><td>1 a 2</td><td>NAP/OTE a ONT de Cliente.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="section-card">
+                    <h3 class="text-xl font-black text-[#FCCB6F] mb-8 text-center uppercase tracking-[0.2em]">Infraestructura de Canalización</h3>
+                    <div class="overflow-x-auto">
+                        <table>
+                            <thead>
+                                <tr><th>Elemento</th><th>Especificación</th><th>Uso en Diseño</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr onclick="openModal('manholes')" class="table-btn-row"><td>Manholes</td><td>Cámaras 120x120x120cm</td><td>Nodos principales y troncales.</td></tr>
+                                <tr onclick="openModal('handholes')" class="table-btn-row"><td>Handholes (HH)</td><td>Cajas de paso en acera</td><td>Reservas de cable y empalmes locales.</td></tr>
+                                <tr onclick="openModal('flowerpots')" class="table-btn-row"><td>Flower Pots (FP)</td><td>Micro-arquetas terminales</td><td>Límites de propiedad / Acceso Drop.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-black text-[#FCCB6F] mb-8 text-center uppercase tracking-[0.2em]">Clasificación de posteadura</h3>
+                    <div class="overflow-x-auto">
+                        <table>
+                            <thead>
+                                <tr><th>Clasificación</th><th>Función</th><th>Uso Sugerido</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr onclick="openModal('pole')" class="table-btn-row"><td>Pole (Poste de Paso)</td><td>Soporte en tramos rectos</td><td>Mantener altura reglamentaria.</td></tr>
+                                <tr onclick="openModal('droppole')" class="table-btn-row"><td>Drop Pole</td><td>Interfaz de distribución</td><td>Puntos NAP / OTE frente a hogares.</td></tr>
+                                <tr onclick="openModal('riserpole')" class="table-btn-row"><td>Riser Pole</td><td>Transición de entorno</td><td>Bajantes Aéreo a Subterráneo.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="text-xl font-black text-[#FCCB6F] mb-4 text-center uppercase tracking-[0.2em]">Anclajes y Retenidas (Anchors)</h3>
+                    <p class="text-slate-400 text-sm mb-6 text-center italic">Elementos de estabilidad estructural ante la tensión de la fibra.</p>
+                    <div class="overflow-x-auto">
+                        <table>
+                            <thead>
+                                <tr><th>Aplicación</th><th>Configuración</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr onclick="openModal('anchor_terminal')" class="table-btn-row"><td>Anclaje Terminal (Dead-end)</td><td>Compensación de tensión final.</td></tr>
+                                <tr onclick="openModal('anchor_tempestad')" class="table-btn-row"><td>Anclaje de Tempestad (Storm)</td><td>Estabilización contra vientos laterales.</td></tr>
+                                <tr onclick="openModal('guy_down')" class="table-btn-row"><td>Down Guy (A Tierra)</td><td>Método estándar y más resistente.</td></tr>
+                                <tr onclick="openModal('guy_overhead')" class="table-btn-row"><td>Overhead Guy (Aéreo)</td><td>Cruce de vía por falta de espacio.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MÓDULO 3 -->
+            <section id="modulo3" class="section-content">
+                <div class="section-card">
+                    <h2 class="text-4xl font-black text-[#FCCB6F] mb-10 uppercase tracking-widest text-center">Criterios de Diseño</h2>
+                    <div class="grid md:grid-cols-2 gap-10 text-center">
+                        <button onclick="openModal('fsa')" class="interactive-box p-12 group relative">
+                            <div class="absolute top-0 left-0 w-12 h-12 bg-[#038BBB] text-[#010D23] flex items-center justify-center font-black text-2xl">1</div>
+                            <h3 class="text-white font-black text-2xl mb-4 uppercase mt-4">Separación de FSA</h3>
+                        </button>
+                        <button onclick="openModal('fdh')" class="interactive-box p-12 group relative">
+                            <div class="absolute top-0 left-0 w-12 h-12 bg-[#038BBB] text-[#010D23] flex items-center justify-center font-black text-2xl">2</div>
+                            <h3 class="text-white font-black text-2xl mb-4 uppercase mt-4">Ubicación del FDH</h3>
+                        </button>
+                        <button onclick="openModal('rutas')" class="interactive-box p-12 group relative">
+                            <div class="absolute top-0 left-0 w-12 h-12 bg-[#038BBB] text-[#010D23] flex items-center justify-center font-black text-2xl">3</div>
+                            <h3 class="text-white font-black text-2xl mb-4 uppercase mt-4">Rutas de Fibra</h3>
+                        </button>
+                        <button onclick="openModal('otes')" class="interactive-box p-12 group relative">
+                            <div class="absolute top-0 left-0 w-12 h-12 bg-[#038BBB] text-[#010D23] flex items-center justify-center font-black text-2xl">4</div>
+                            <h3 class="text-white font-black text-2xl mb-4 uppercase mt-4">OTEs y Cierres</h3>
+                        </button>
+                    </div>
+
+                    <div class="p-10 bg-black/40 border-l-[10px] border-[#FCCB6F] text-center mt-10">
+                        <h4 class="font-black text-[#FCCB6F] mb-4 uppercase tracking-[0.25em] text-sm text-center">Criterio de Ingeniería:</h4>
+                        <p class="text-white text-xl font-black leading-tight uppercase tracking-tighter italic text-center">
+                            "Evitar en lo posible el retorno de luz y recorridos innecesarios que aumenten la distancia entre la OLT y el usuario final."
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="mt-20 text-center text-[#606D80] text-[11px] font-black uppercase tracking-[0.5em] border-t-2 border-[#038BBB]/10 pt-10">
+                HDL FTTx FIBERLOG GUIDE - 2026
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        const userImages = {};
+
+        const modalData = {
+            unifamiliares: { 
+                title: "Casas Unifamiliares", 
+                description: "Identificación de unidades habitacionales individuales. En el diseño se contabiliza estrictamente una unidad por lote catastral individual. Esto permite dimensionar la capacidad de los cierres de distribución y prever la ocupación de hilos en la red secundaria.",
+                imagePath: "casas unifamiliares.png"
+            },
+            mdu: { 
+                title: "Edificios (MDU - Multi-Dwelling Units)", 
+                description: "En edificaciones multifamiliares, el punto NO se cuenta como una sola unidad. La demanda se calcula por el número total de apartamentos or unidades inmobiliarias internas. Un edificio de gran escala (ej. 20 pisos) puede requerir un cable de distribución dedicado únicamente para su estructura interna y el uso de cierres internos por planta.",
+                imagePath: "edificios.png"
+            },
+            centros: { 
+                title: "Centros Comerciales", 
+                description: "Se dimensiona local por local comercial activo. La regla de oro en el diseño es dejar una reserva técnica del 20-30% para futuros negocios o servicios corporativos de alta demanda (enlaces simétricos dedicados).",
+                imagePath: "cc.png"
+            },
+            relevamiento: { 
+                title: "Relevamiento de Campo", 
+                description: "Proceso de identificación exhaustiva de cada poste por material (concreto, madera, acero), altura libre y uso (eléctrico, telecom). Es vital marcar 'Handicaps' críticos: cruces de avenidas de alto tráfico, líneas de media/alta tensión que exigen distancias de seguridad reglamentarias y zonas de difícil acceso.",
+                imagePath: "relevamiento.png"
+            },
+            demanda: { 
+                title: "Cálculo de Demanda", 
+                description: "Zonificación técnica del territorio mediante polígonos que agrupan entre 200 y 500 HPs por gabinete FDH. Este análisis permite balancear la carga de los gabinetes, optimizar el uso de los puertos de la OLT y asegurar que la distancia máxima de fibra no degrade el presupuesto óptico permitido (sensibilidad de la ONT).",
+                imagePath: "calculo de demanda.png"
+            },
+            manholes: { 
+                title: "Manholes (Cámaras de Registro)", 
+                description: "Cámaras de concreto reforzado de gran dimensión (ej. 120x120x120cm) instaladas en puntos de confluencia troncal. Se ubican en nodos principales, cambios de dirección de cables Feeder de alta capacidad y entradas a la Oficina Central. Deben permitir la instalación de soportes para cierres de empalme y reservas de cable (coils).",
+                imagePath: "MH.png"
+            },
+            handholes: { 
+                title: "Handholes (HH) - Cajas de Paso", 
+                description: "Cajas de paso más pequeñas ubicadas en aceras. Diseñadas para alojar reservas de cable de distribución y cierres de empalme locales. Su ubicación estratégica facilita el acceso técnico para mantenimiento preventivo sin necesidad de equipos de izaje pesados.",
+                imagePath: "HH.png"
+            },
+            flowerpots: { 
+                title: "Flower Pots (FP) - Arquetas Micro", 
+                description: "Micro-arquetas terminales para redes subterráneas. Se instalan usualmente en el límite de propiedad de los clientes. Sirven para la transición entre la tubería de distribución y la micro-canalización de la acometida (Drop). Protegen el punto de entrada al domicilio del abonado.",
+                imagePath: "FP.png"
+            },
+            fiber_feeder: { 
+                title: "Fibras de Alta Capacidad (Backbone)", 
+                description: "Cables troncales que conectan la Central (CO) con los Distritos o nodos principales. Son los 'ríos' de datos. Capacidades comunes: 144, 288, 432 y hasta 864 hilos. Generalmente van por canalización subterránea (Trench) o en postes de alta resistencia con herrajes reforzados.",
+                imagePath: "feeder.png"
+            },
+            fiber_distribution: { 
+                title: "Fibras de Capacidad Media (Distribución)", 
+                description: "Salen de los cierres de empalme principales hacia las diferentes calles o sectores. Capacidades comunes: 48, 72 y 96 hilos. Se dimensionan para cubrir la demanda total de los Home Passed dentro de su área de influencia geográfica.",
+                imagePath: "distribucion.png"
+            },
+            fiber_drop: { 
+                title: "Fibra de Acometida (Drop)", 
+                description: "Cable final de 1 o 2 hilos que conecta la caja NAP/OTE con la ONT del cliente. Utiliza fibras resistentes a curvaturas críticas (G.657.A2). En despliegues aéreos debe ser autosoportado para resistir tensiones ambientales.",
+                imagePath: "drop.png"
+            },
+            bus: { 
+                title: "Topología BUS", 
+                description: "Utiliza un cable como bus común; un extremo está conectado al puerto PON y el otro se extiende hacia los usuarios. Cada terminal de usuario está conectado directamente al bus de fibra óptica a través de OTEs y estos a su vez, a un splitter, que deriva el haz de luz según sea conveniente.",
+                imagePath: "bus.png"
+            },
+            estrella: { 
+                title: "Topología Estrella", 
+                description: "Estructura tipo árbol con dos niveles jerárquicos. Agrega un nodo activo entre la OLT del proveedor y el suscriptor. Facilita la segregación de fallas y simplifica las tareas de mantenimiento y auditoría en zonas de alta densidad urbana.",
+                imagePath: "topologia estrella.png"
+            },
+            pole: { 
+                title: "Pole (Poste de Paso)", 
+                description: "Componente básico de la infraestructura. Su función principal es servir de soporte para mantener el cableado a la altura reglamentaria en tramos rectos donde la fibra simplemente 'pasa' de un punto a otro.",
+                imagePath: "pole.png"
+            },
+            droppole: { 
+                title: "Drop Pole (Poste de Interfaz)", 
+                description: "Poste de distribución o de abonado. Es el punto donde la red 'se abre' para dar servicio. Se ubica estratégicamente frente a hogares o edificios para que la longitud del cable drop del cliente no exceda los 50-80 metros.",
+                imagePath: "DROP POLE.png"
+            },
+            riserpole: { 
+                title: "Riser Pole (Transición)", 
+                description: "Poste especializado para gestionar el cambio de entorno del cable (Aéreo a Subterráneo). Incluye un conducto (Tubo Riser) de acero galvanizado o PVC reforzado para salvaguardar la integridad de la fibra desde el suelo hasta la corona del poste.",
+                imagePath: "RISER POLE.png"
+            },
+            fsa: { 
+                title: "Separación de FSA", 
+                description: "Fiber Service Area. Zonificación técnica del territorio para evitar solapamientos (overlaps) de infraestructura. Cada FSA es servida por un único FDH, permitiendo una gestión precisa del inventario y optimizando el presupuesto óptico global.",
+                imagePath: "SEPARACION DE FSA.png"
+            },
+            fdh: { 
+                title: "Ubicación del FDH", 
+                description: "El gabinete debe situarse lo más cercano posible al 'Centro de Carga' de la demanda. Criterios: facilidad de acceso 24/7, espacio libre para apertura total de puertas y protección contra impactos vehiculares o inundaciones.",
+                imagePath: "UBICACION DEL FDH.png"
+            },
+            rutas: { 
+                title: "Rutas de Fibra", 
+                description: "El mayor handicap en el diseño HLD es la cantidad de recorrido lineal de la luz. El diseño debe eliminar estrictamente los retornos de luz (back-tracking) y la creación de bucles innecesarios. Se prioriza siempre el uso de postación eléctrica existente (Joint-Use).",
+                imagePath: "rutas fo.png"
+            },
+            otes: { 
+                title: "Ubicación de OTEs", 
+                description: "Su ubicación se basa en el 'Take Rate'. Los OTEs deben situarse en postes de fácil acceso técnico. El objetivo es maximizar la cobertura por puerto y minimizar la longitud del drop final del abonado.",
+                imagePath: "otes.png"
+            },
+            anchor_terminal: { 
+                title: "Anclaje de Terminal (Dead-end Anchor)", 
+                description: "Se utiliza al final de una línea o en el poste donde termina el despliegue. Función: Compensar la tensión total del cable que 'tira' hacia un solo lado. Ubicación: Se coloca exactamente en dirección opuesta a la salida del cable.",
+                imagePath: "DEAD END ANCHOR.png"
+            },
+            anchor_tempestad: { 
+                title: "Anclaje de Tempestad o Lineal (Storm Anchor)", 
+                description: "Se coloca en tramos rectos muy largos (cada 5 o 10 postes, dependiendo de la zona). Función: Evitar el 'efecto dominó' si un poste falla y estabilizar la red ante vientos laterales fuertes. Ubicación: Perpendicular a la línea de la fibra.",
+                imagePath: "ANCHOR STORM.png"
+            },
+            guy_down: { 
+                title: "Down Guy (Retenida a Tierra)", 
+                description: "El cable baja directamente del poste a un anclaje en el suelo. Es el método de instalación más común y resistente para contrarrestar las fuerzas laterales en el despliegue de postes.",
+                imagePath: "DOWN GUY ANCHOR.png"
+            },
+            guy_overhead: { 
+                title: "Overhead Guy (Retenida Aérea)", 
+                description: "Si no hay espacio en la acera para el anclaje, el cable de acero cruza la calle hacia otro poste (poste de apoyo) y de ahí baja a tierra.",
+                imagePath: "OVERHEAD ANCHOR.png"
+            }
+        };
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section-content');
+            sections.forEach(s => s.classList.remove('active'));
+            const links = document.querySelectorAll('.sidebar-link');
+            links.forEach(l => l.classList.remove('active'));
+            const target = document.getElementById(sectionId);
+            if (target) { target.classList.add('active'); }
+            const btn = document.querySelector(`[data-target="${sectionId}"]`);
+            if (btn) { btn.classList.add('active'); }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openModal(type) {
+            const data = modalData[type];
+            if(!data) return;
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-description').innerText = data.description;
+            const previewImg = document.getElementById('preview-img');
+            const placeholder = document.getElementById('placeholder-content');
+            if (data.imagePath) {
+                previewImg.src = data.imagePath;
+                previewImg.style.display = 'block';
+                placeholder.style.display = 'none';
+                previewImg.onerror = function() {
+                    if (userImages[type]) {
+                        previewImg.src = userImages[type];
+                    } else {
+                        previewImg.style.display = 'none';
+                        placeholder.style.display = 'block';
+                    }
+                };
+            } else {
+                previewImg.style.display = 'none';
+                placeholder.style.display = 'block';
+            }
+            document.getElementById('modal-overlay').style.display = 'flex';
+        }
+
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file && file.type === "image/png") {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const activeTitle = document.getElementById('modal-title').innerText;
+                    const activeType = Object.keys(modalData).find(k => modalData[k].title === activeTitle);
+                    if (activeType) {
+                        userImages[activeType] = e.target.result;
+                        document.getElementById('preview-img').src = e.target.result;
+                        document.getElementById('preview-img').style.display = 'block';
+                        document.getElementById('placeholder-content').style.display = 'none';
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').style.display = 'none';
+        }
+
+        window.onload = () => {
+            showSection('introduccion');
+        };
+    </script>
+</body>
+</html>
