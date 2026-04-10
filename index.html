@@ -165,8 +165,7 @@
         .lang-switch-container {
             position: relative;
             display: flex;
-            width: 60px;
-            height: 24px;
+            width: 60px; height: 24px;
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(3, 139, 187, 0.3);
             cursor: pointer;
@@ -192,10 +191,8 @@
 
         .lang-slider {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 50%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 50%; height: 100%;
             background-color: var(--gold-dark);
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1;
@@ -209,8 +206,7 @@
         .bg-card-number {
             font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             position: absolute;
-            top: -1.5rem;
-            left: -1rem;
+            top: -1.5rem; left: -1rem;
             font-size: 10rem;
             font-weight: 900;
             line-height: 1;
@@ -221,10 +217,9 @@
             z-index: 0;
         }
 
-        /* Se ha eliminado la rotación para un acabado más profesional */
         .interactive-box:hover .bg-card-number {
             color: rgba(252, 203, 111, 0.4);
-            transform: scale(1.05); /* Incremento leve y recto */
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -301,11 +296,11 @@
                 </div>
 
                 <div class="px-10 space-y-10 text-[#cbd5e1] leading-relaxed max-w-5xl mx-auto text-center">
-                    <p class="text-xl" data-i18n="intro_p1">La visión de ingeniería en un diseño FTTx (Fiber-to-the-X) no se trata solo de desplegar cables de fibra óptica, sino de crear una infraestructura escalable, mantenible y económicamente viable. El objetivo principal es maximizar la cobertura y la velocidad minimizando la pérdida de señal (atenuación) y los costos de despliegue e infraestructura. Para alcanzar este equilibrio, la ingeniería debe abordar el diseño desde dos vertientes fundamentales: los límites físicos de transmisión y la configuración estructural de la red.</p>
+                    <p class="text-xl" data-i18n="intro_p1">La visión de ingeniería en un diseño FTTx (Fiber-to-the-X) es crear una infraestructura escalable, mantenible y económicamente viable. El objetivo principal es maximizar la cobertura minimizando los costos de despliegue e infraestructura. Para alcanzar este equilibrio, la ingeniería debe abordar el diseño desde dos vertientes fundamentales: los límites físicos de transmisión y la configuración estructural de la red.</p>
                     
-                    <p class="text-xl" data-i18n="intro_p2">El Presupuesto de Potencia Óptica (Link Budget) Es el cálculo más crítico y que a pesar que se vea mas en detalle en el LLD (Low Level Design) se debe tener en consideracion en la contabilidad del recorrido de fibra, pues una de las limitantes mas criticas es la distancia total para asegurar que la luz llegue desde la OLT (en la central) hasta la ONT (en casa del cliente) La ingeniería debe garantizar la intensidad de la luz suficiente considerando la distancia, derivaciones y que el recorrido no supere los 20km o 12 millas.</p>
+                    <p class="text-xl" data-i18n="intro_p2">El Presupuesto de Potencia Óptica (Link Budget) Es el cálculo más crítico. A efectos de un HLD se debe tener en consideración en la contabilidad del recorrido de fibra, para asegurar que la luz llegue desde la OLT (en la central) hasta la ONT (en casa del cliente) La ingeniería debe garantizar la intensidad de la luz suficiente considerando la distancia, derivaciones y que el recorrido no supere los 20km o 12 millas.</p>
 
-                    <p class="text-xl" data-i18n="intro_p3">La definición de la topología de la red según la ingeniería preliminar, determina la distribución óptica y la arquitectura de ramificación. La elección entre un modelo de división centralizada (un único nivel de división de alta capacidad) o una arquitectura en cascada (múltiples niveles de división distribuidos) altera significativamente el despliegue de la planta externa. Si bien la configuración en cascada optimiza el uso del cableado al reducir sustancialmente la cantidad de hilos de fibra, incrementa la complejidad técnica en la caracterización de eventos y la localización de averías.</p>
+                    <p class="text-xl" data-i18n="intro_p3">La definición de la topología de la red según la ingeniería preliminar, determina la distribución óptica y la arquitectura de ramificación. La elección entre un modelo de división centralizada (un único nivel de división de alta capacidad) o una arquitectura en cascada (múltiples niveles de división distribuidos) altera significativamente el despliegue de la planta externa.</p>
                     
                     <div class="stylized-final mt-12">
                         <p class="text-2xl" data-i18n="intro_final">Se trata de construir la mejor red posible sin gastar de más, buscando que el despliegue sea técnicamente robusto y financieramente sostenible.</p>
@@ -336,7 +331,7 @@
 
                 <div class="section-card text-center">
                     <h2 class="text-3xl font-black text-[#FCCB6F] mb-6 uppercase tracking-widest" data-i18n="m1_relevamiento_title">Relevamiento y Demanda</h2>
-                    <div class="grid md:grid-cols-2 gap-8">
+                    <div class="grid md:grid-cols-3 gap-8">
                         <button onclick="openModal('relevamiento')" class="interactive-box p-8 group">
                             <h3 class="text-[#f8fafc] font-black text-xl mb-4 uppercase" data-i18n="field_survey">Relevamiento de Campo</h3>
                             <p class="text-xs text-[#E19F41] font-bold uppercase tracking-widest" data-i18n="field_survey_desc">Caracterizacion de elementos in situ</p>
@@ -344,6 +339,10 @@
                         <button onclick="openModal('demanda')" class="interactive-box p-8 group">
                             <h3 class="text-[#f8fafc] font-black text-xl mb-4 uppercase" data-i18n="polygon_calc">Cálculo de Polígonos</h3>
                             <p class="text-xs text-[#E19F41] font-bold uppercase tracking-widest" data-i18n="polygon_calc_desc">Zonificación de densidad de clientes.</p>
+                        </button>
+                        <button onclick="openModal('hp_grouping')" class="interactive-box p-8 group">
+                            <h3 class="text-[#f8fafc] font-black text-xl mb-4 uppercase" data-i18n="hp_grouping">Cluster NAP</h3>
+                            <p class="text-xs text-[#E19F41] font-bold uppercase tracking-widest" data-i18n="hp_grouping_subtitle">Agrupacion de home passed segun OTEs</p>
                         </button>
                     </div>
                 </div>
@@ -403,8 +402,8 @@
                 </div>
 
                 <div class="section-card">
-                    <h3 class="text-xl font-black text-[#FCCB6F] mb-4 text-center uppercase tracking-[0.2em]" data-i18n="anchors">Anclajes y Retenidas (Anchors)</h3>
-                    <p class="text-slate-400 text-sm mb-6 text-center italic" data-i18n="anchors_desc">Elementos de estabilidad estructural ante la tensión de la fibra.</p>
+                    <h3 class="text-xl font-black text-[#FCCB6F] mb-4 text-center uppercase tracking-[0.2em]" data-i18n="anchors">ANCLAJES Y RETENIDAS (DOWN GUY)</h3>
+                    <p class="text-slate-400 text-sm mb-6 text-center italic" data-i18n="anchors_desc">Es un cable tensor que baja desde el poste hacia el suelo, anclado a una varilla (anchor rod), para absorber la tensión del cable aéreo.</p>
                     <div class="overflow-x-auto">
                         <table id="anchors-table">
                             <thead>
@@ -462,18 +461,20 @@
             es: {
                 nav_vision: "vision de ingenieria", nav_analysis: "Analisis de datos", nav_general: "Consideraciones generales", nav_criteria: "Criterios de diseño", insert_image: "Insertar imagen aquí",
                 intro_quote: '"Diseñar una red escalable, mantenible y con un balance de potencia óptimo que responda a las necesidades actuales y futuras."',
-                intro_p1: "La visión de ingeniería en un diseño FTTx (Fiber-to-the-X) no se trata solo de desplegar cables de fibra óptica, sino de crear una infraestructura escalable, mantenible y económicamente viable. El objetivo principal es maximizar la cobertura y la velocidad minimizando la pérdida de señal (atenuación) y los costos de despliegue e infraestructura. Para alcanzar este equilibrio, la ingeniería debe abordar el diseño desde dos vertientes fundamentales: los límites físicos de transmisión y la configuración estructural de la red.",
-                intro_p2: "El Presupuesto de Potencia Óptica (Link Budget) Es el cálculo más crítico y que a pesar que se vea mas en detalle en el LLD (Low Level Design) se debe tener en consideracion en la contabilidad del recorrido de fibra, pues una de las limitantes mas criticas es la distancia total para asegurar que la luz llegue desde la OLT (en la central) hasta la ONT (en casa del cliente) La ingeniería debe garantizar la intensidad de la luz suficiente considerando la distancia, derivaciones y que el recorrido no supere los 20km o 12 millas.",
-                intro_p3: "La definición de la topología de la red según la ingeniería preliminar, determina la distribución óptica y la arquitectura de ramificación. La elección entre un modelo de división centralizada (un único nivel de división de alta capacidad) o una arquitectura en cascada (múltiples niveles de división distribuidos) altera significativamente el despliegue de la planta externa. Si bien la configuración en cascada optimiza el uso del cableado al reducir sustancialmente la cantidad de hilos de fibra, incrementa la complejidad técnica en la caracterización de eventos y la localización de averías.",
+                intro_p1: "La visión de ingeniería en un diseño FTTx (Fiber-to-the-X) es crear una infraestructura escalable, mantenible y económicamente viable. El objetivo principal es maximizar la cobertura minimizando los costos de despliegue e infraestructura. Para alcanzar este equilibrio, la ingeniería debe abordar el diseño desde dos vertientes fundamentales: los límites físicos de transmisión y la configuración estructural de la red.",
+                intro_p2: "El Presupuesto de Potencia Óptica (Link Budget) Es el cálculo más crítico. A efectos de un HLD se debe tener en consideración en la contabilidad del recorrido de fibra, para asegurar que la luz llegue desde la OLT (en la central) hasta la ONT (en casa del cliente) La ingeniería debe garantizar la intensidad de la luz suficiente considerando la distancia, derivaciones y que el recorrido no supere los 20km o 12 millas.",
+                intro_p3: "La definición de la topología de la red según la ingeniería preliminar, determina la distribución óptica y la arquitectura de ramificación. La elección entre un modelo de división centralizada (un único nivel de división de alta capacidad) o una arquitectura en cascada (múltiples niveles de división distribuidos) altera significativamente el despliegue de la planta externa.",
                 intro_final: "Se trata de construir la mejor red posible sin gastar de más, buscando que el despliegue sea técnicamente robusto y financieramente sostenible.",
                 m1_title: "Identificar los Home Passed (HP)", m1_subtitle: "Categorización técnica de unidades inmobiliarias para el dimensionamiento de la red.",
                 hp_casas: "Casas Unifamiliares", hp_casas_sub: "Censo por Lote", hp_edificios: "Edificios (MDU)", hp_edificios_sub: "Conteo por Apartamento", hp_cc: "Centros Comerciales", hp_cc_sub: "Dimensionado Local",
                 m1_relevamiento_title: "Relevamiento y Demanda", field_survey: "Relevamiento de Campo", field_survey_desc: "Caracterizacion de elementos in situ", polygon_calc: "Cálculo de Polígonos", polygon_calc_desc: "Zonificación de densidad de clientes.",
+                hp_grouping: "Cluster NAP",
+                hp_grouping_subtitle: "Agrupacion de home passed segun OTEs",
                 m2_title: "Consideraciones Generales", topologies: "Topologías de Red", topologies_desc: "La ingeniería define cómo se ramifica la fibra. La mayoría de los diseños modernos utilizan GPON o XGS-PON con una topología de Punto a Multipunto (P2MP).",
                 topo_bus: "Modelo BUS", topo_star: "Modelo Estrella", hierarchy: "Jerarquía de Fibra Óptica", th_level: "Nivel", th_cores: "Hilos Comunes", th_application: "Aplicación Técnica",
                 canalization: "Infraestructura de Canalización", th_element: "Elemento", th_spec: "Especificación", th_use: "Uso en Diseño",
                 posteadura: "Clasificación de posteadura", th_class: "Clasificación", th_func: "Función", th_suggested: "Uso Sugerido",
-                anchors: "Anclajes y Retenidas (Anchors)", anchors_desc: "Elementos de estabilidad estructural ante la tensión de la fibra.", th_app: "Aplicación", th_config: "Configuración",
+                anchors: "ANCLAJES Y RETENIDAS (DOWN GUY)", anchors_desc: "Es un cable tensor que baja desde el poste hacia el suelo, anclado a una varilla (anchor rod), para absorber la tensión del cable aéreo.", th_app: "Aplicación", th_config: "Configuración",
                 m3_title: "Criterios de Diseño", crit_fsa: "Separación de FSA", crit_fdh: "Ubicación del FDH", crit_routes: "Rutas de Fibra", crit_otes: "OTEs y Cierres",
                 engineering_crit: "Criterio de Ingeniería:",
                 eng_quote: "Optimizar el trayecto óptico suprimiendo el back-tracking y recorridos innecesarios para minimizar la distancia lineal entre la OLT y el usuario."
@@ -481,18 +482,20 @@
             en: {
                 nav_vision: "engineering vision", nav_analysis: "Data Analysis", nav_general: "General Considerations", nav_criteria: "Design Criteria", insert_image: "Insert image here",
                 intro_quote: '"Designing a scalable, maintainable network with an optimal power balance that responds to current and future needs."',
-                intro_p1: "The engineering vision in an FTTx (Fiber-to-the-X) design is not just about deploying fiber optic cables, but about creating a scalable, maintainable, and economically viable infrastructure. The main objective is to maximize coverage and speed while minimizing signal loss (attenuation) and deployment and infrastructure costs. To achieve this balance, engineering must approach the design from two fundamental aspects: physical transmission limits and structural network configuration.",
-                intro_p2: "The Optical Power Budget (Link Budget) is the most critical calculation. Although it is seen in more detail in an LLD (Low Level Design), it must be taken into account in the fiber route accounting. One of the most critical limitations is the total distance to ensure the light reaches from the OLT (in the central office) to the ONT (at the customer's home). Engineering must guarantee sufficient light intensity considering distance, derivations, and ensuring the route does not exceed 20km or 12 miles.",
-                intro_p3: "The definition of the network topology according to preliminary engineering determines the optical distribution and branching architecture. Choosing between a centralized split model (a single high-capacity splitting level) or a cascaded architecture (multiple distributed splitting levels) significantly alters the outside plant deployment. While the cascaded configuration optimizes cabling by substantially reducing fiber core counts, it increases technical complexity in event characterization and fault localization.",
+                intro_p1: "The engineering vision in an FTTx (Fiber-to-the-X) design is to create a scalable, maintainable, and economically viable infrastructure. The main objective is to maximize coverage while minimizing deployment and infrastructure costs. To achieve this balance, engineering must approach the design from two fundamental aspects: physical transmission limits and structural network configuration.",
+                intro_p2: "The Optical Power Budget (Link Budget) is the most critical calculation. For HLD purposes, it must be taken into account in the fiber route accounting to ensure light reaches from the OLT (in the central office) to the ONT (at the customer's home). Engineering must guarantee sufficient light intensity considering distance, derivations, and ensuring the route does not exceed 20km or 12 miles.",
+                intro_p3: "The definition of the network topology according to preliminary engineering determines the optical distribution and branching architecture. Choosing between a centralized split model (a single high-capacity splitting level) or a cascaded architecture (multiple distributed splitting levels) significantly alters the outside plant deployment.",
                 intro_final: "It is about building the best possible network without overspending, seeking a deployment that is technically robust and financially sustainable.",
                 m1_title: "Identify Home Passed (HP)", m1_subtitle: "Technical categorization of real estate units for network sizing.",
                 hp_casas: "Single-Family Homes", hp_casas_sub: "Lot-by-Lot Census", hp_edificios: "Buildings (MDU)", hp_edificios_sub: "Count by Apartment", hp_cc: "Shopping Centers", hp_cc_sub: "Local Dimensioning",
                 m1_relevamiento_title: "Survey and Demand", field_survey: "Field Survey", field_survey_desc: "On-site element characterization", polygon_calc: "Polygon Calculation", polygon_calc_desc: "Customer density zoning.",
+                hp_grouping: "Cluster NAP",
+                hp_grouping_subtitle: "Home Passed grouping according to OTEs",
                 m2_title: "General Considerations", topologies: "Network Topologies", topologies_desc: "Engineering defines how fiber branches out. Most modern designs use GPON or XGS-PON with a Point-to-Multipoint (P2MP) topology.",
                 topo_bus: "BUS Model", topo_star: "Star Model", hierarchy: "Fiber Optic Hierarchy", th_level: "Level", th_cores: "Common Cores", th_application: "Technical Application",
                 canalization: "Canalization Infrastructure", th_element: "Element", th_spec: "Specification", th_use: "Design Use",
                 posteadura: "Pole Classification", th_class: "Classification", th_func: "Function", th_suggested: "Suggested Use",
-                anchors: "Anchors and Guys", anchors_desc: "Structural stability elements against fiber tension.", th_app: "Application", th_config: "Configuration",
+                anchors: "ANCHORS AND GUYS (DOWN GUY)", anchors_desc: "It is a guy wire that goes down from the pole to the ground, anchored to an anchor rod, to absorb the tension of the aerial cable.", th_app: "Application", th_config: "Configuración",
                 m3_title: "Design Criteria", crit_fsa: "FSA Separation", crit_fdh: "FDH Location", crit_routes: "Fiber Routes", crit_otes: "OTEs and Closures",
                 engineering_crit: "Engineering Criterion:",
                 eng_quote: "Optimize the optical path by removing back-tracking and unnecessary routes to minimize the linear distance between the OLT and the user."
@@ -506,25 +509,27 @@
                 centros: { title: "Centros Comerciales", description: "Se dimensiona local por local comercial activo. La regla de oro en el diseño es dejar una reserva técnica del 20-30% para futuros negocios o servicios corporativos de alta demanda (enlaces simétricos dedicados).", imagePath: "cc.png" },
                 relevamiento: { title: "Relevamiento de Campo", description: "Proceso de identificación exhaustiva de cada poste por material (concreto, madera, acero), altura libre y uso (eléctrico, telecom). Es vital marcar 'Handicaps' críticos: cruces de avenidas de alto tráfico, líneas de media/alta tensión que exigen distancias de seguridad reglamentarias y zonas de difícil acceso.", imagePath: "relevamiento.png" },
                 demanda: { title: "Cálculo de Demanda", description: "Zonificación técnica del territorio mediante polígonos que agrupan entre 200 y 500 HPs por gabinete FDH. Este análisis permite balancear la carga de los gabinetes, optimizar el uso de los puertos de la OLT y asegurar que la distancia máxima de fibra no degrade el presupuesto óptico permitido (sensibilidad de la ONT).", imagePath: "calculo de demanda.png" },
+                hp_grouping: { title: "Cluster NAP", description: "Se agrupan las unidades que serán conectadas bajo un mismo punto de acceso; esta agrupación dependerá de la capacidad del OTE, el take rate y la morfología de la calle. Esta agrupación se realiza para optimizar al máximo el uso de un OTE, tomando en consideración la ubicación del mismo, en donde se despliegue la menor cantidad de drop y el recorrido hacia el usuario final sea lo mas directo posible, sin olvidar la futura topología de la red para la conexion del OTE.", imagePath: "Cluster NAP.png" },
                 bus: { title: "Topología BUS", description: "Utiliza un cable como bus común; un extremo está conectado al puerto PON y el otro se extiende hacia los usuarios. Cada terminal de usuario está conectado directamente al bus de fibra óptica a través de OTEs y estos a su vez, a un splitter, que deriva el haz de luz según sea conveniente.", imagePath: "bus.png" },
                 estrella: { title: "Topología Estrella", description: "Estructura tipo árbol con dos niveles jerárquicos. Agrega un nodo activo entre la OLT del proveedor y el suscriptor. Facilita la segregación de fallas y simplifica las tareas de mantenimiento y auditoría en zonas de alta densidad urbana.", imagePath: "topologia estrella.png" },
                 fsa: { title: "Separación de FSA", description: "(Fiber Service Area) Se realiza una zonificación técnica del territorio para evitar solapamientos (overlaps) de infraestructura, considerando las entradas y salidas de utilidades de cada zona para que la separación sea lo mas adecuada posible. Cada FSA es servida por un único FDH.", imagePath: "SEPARACION DE FSA.png" },
                 fdh: { title: "Ubicación del FDH", description: "El gabinete debe situarse lo más cercano posible al 'Centro de Carga' de la demanda. Teniendo en consideracion la facilidad de acceso 24/7, espacio libre para la apertura total de puertas sin obstaculizar señales de transito ni vias de acceso y manteniendo la protección del gabinete contra impactos vehiculares o inundaciones de la zona.", imagePath: "UBICACION DEL FDH.png" },
                 rutas: { title: "Rutas de Fibra", description: "El criterio fundamental en un HLD es la optimización del recorrido lineal de la fibra. Para lograrlo, poseer un conocimiento de las diversas topologías de red, saber reconocerlas y adaptar patrones resulta sumamente ventajoso, ya que permite que el trazado evite el back-tracking (recorridos de retroceso) y la formación de rutas redundantes innecesarias. Asimismo, se debe priorizar siempre el uso de la posteadura eléctrica existente para el anclaje de nuevos cables.", imagePath: "rutas fo.png" },
-                otes: { title: "Ubicación de OTEs", description: "Su ubicación se basa en el 'Take Rate', proyectando la densidad de abonados potenciales para dimensionar correctamente la capacidad de los divisores ópticos y evitar la saturación temprana o la subutilización de la red. Los OTEs (Optical Terminal Equipment / CTOs) deben situarse en lo postes mas cercanos y de fácil acceso técnico in caso de realizar un despliegue aéreo. En caso de ser subterráneo, la ubicación de los cierres de empalme (splice) y OTEs puede ser definida de forma más conveniente según lo permita el paso del resto de las utilidades. El objetivo es maximizar la cobertura por puerto y minimizar la longitud del drop final del abonado.", imagePath: "otes.png" },
+                otes: { title: "Ubicación de OTEs", description: "Su ubicación se bases en el 'Take Rate', proyectando la densidad de abonados potenciales para dimensionar correctamente la capacidad de los divisores ópticos y evitar la saturación temprana o la subutilización de la red. Los OTEs (Optical Terminal Equipment / CTOs) deben situarse en lo postes mas cercanos y de fácil acceso técnico in caso de realizar un despliegue aéreo. En caso de ser subterráneo, la ubicación de los cierres de empalme (splice) y OTEs puede ser definida de forma más conveniente según lo permita el paso del resto de las utilidades. El objetivo es maximizar la cobertura por puerto y minimizar la longitud del drop final del abonado.", imagePath: "otes.png" },
                 fiber_feeder: { title: "Fibras de Alta Capacidad (Backbone)", description: "Cables troncales que conectan la Central (CO) con los Distritos o nodos principales. Son los 'ríos' de datos. Capacidades comunes: 144, 288, 432 y hasta 864 hilos. Generalmente van por canalización subterránea (Trench) o en postes de alta resistencia con herrajes reforzados.", imagePath: "feeder.png" },
                 fiber_distribution: { title: "Fibras de Capacidad Media (Distribución)", description: "Salen de los cierres de empalme principales hacia las diferentes calles o sectores. Capacidades comunes: 48, 72 y 96 hilos. Se dimensionan para cubrir la demanda total de los Home Passed dentro de su área de influencia geográfica.", imagePath: "distribucion.png" },
                 fiber_drop: { title: "Fibra de Acometida (Drop)", description: "Cable final de 1 o 2 hilos que conecta la caja NAP/OTE con la ONT del cliente. Utiliza fibras resistentes a curvaturas críticas (G.657.A2). En despliegues aéreos debe ser autosoportado para resistir tensiones ambientales.", imagePath: "drop.png" },
                 manholes: { title: "Manholes (Cámaras de Registro)", description: "Cámaras de concreto reforzado de gran dimensión (ej. 120x120x120cm) instaladas en puntos de confluencia troncal. Se ubican en nodos principales, cambios de dirección de cables Feeder de alta capacidad y entradas a la Oficina Central. Deben permitir la instalación de soportes para cierres de empalme y reservas de cable (coils).", imagePath: "MH.png" },
-                handholes: { title: "Handholes (HH) - Cajas de Paso", description: "Cajas de paso más pequeñas ubicadas en aceras. Diseñadas para alojar reservas de cable de distribución y cierres de empalme locales. Su ubicación estratégica facilita el acceso técnico para mantenimiento preventivo sin necesidad de equipos de izaje pesados.", imagePath: "HH.png" },
-                flowerpots: { title: "Flower Pots (FP) - Arquetas Micro", description: "Micro-arquetas terminales para redes subterráneas. Se instalan usualmente en el límite de propiedad de los clientes. Sirven para la transición entre la tubería de distribución y la micro-canalización de la acometida (Drop). Protegen el punto de entrada al domicilio del abonado.", imagePath: "FP.png" },
+                handholes: { title: "Handholes (HH) - Cajas de Paso", description: "Cajas de paso más pequeñas ubicadas en aceras. Diseñadas para alojar reservas de cable de distribución y cierres de empalme locales. Su ubicación estratégica facilita el acceso técnico para mantenimiento preventivo sin necesidad de equipos de izaje pesados.", imagePath: "handholes.png" },
+                flowerpots: { title: "Flower Pots (FP) - Arquetas Micro", description: "Micro-arquetas terminales para redes subterráneas. Se instalan usualmente en el límite de propiedad de los clientes. Sirven para la transición entre la tubería de distribución y la micro-canalización de la acometida (Drop). Protegen el punto de entrada al domicilio del abonado.", imagePath: "flowerpots.png" },
                 pole: { title: "Pole (Poste de Paso)", description: "Componente básico de la infraestructura. Su función principal es servir de soporte para mantener el cableado a la altura reglamentaria en tramos rectos donde la fibra simplemente 'pasa' de un punto a otro.", imagePath: "pole.png" },
                 droppole: { title: "Drop Pole (Poste de Interfaz)", description: "Poste de distribución o de abonado. Es el punto donde la red 'se abre' para dar servicio. Se ubica estratégicamente frente a hogares o edificios para que la longitud del cable drop del cliente no exceda los 50-80 metros.", imagePath: "DROP POLE.png" },
-                riserpole: { title: "Riser Pole (Transición)", description: "Poste especializado para gestionar el cambio de entorno del cable (Aéreo a Subterráneo). Incluye un conducto (Tubo Riser) de acero galvanizado o PVC reforzado para salvaguardar la integridad de la fibra desde el suelo hasta la corona del poste.", imagePath: "RISER POLE.png" },
-                anchor_terminal: { title: "Anclaje de Terminal (Dead-end Anchor)", description: "Se utiliza al final de una línea o en el poste donde termina el despliegue. Función: Compensar la tensión total del cable que 'tira' hacia un solo lado. Ubicación: Se coloca exactamente en dirección opuesta a la salida del cable.", imagePath: "DEAD END ANCHOR.png" },
-                anchor_tempestad: { title: "Anclaje de Tempestad o Lineal (Storm Anchor)", description: "Se coloca en tramos rectos muy largos (cada 5 o 10 postes, dependiendo de la zona). Función: Evitar el 'efecto dominó' si un poste falla y estabilizar la red ante vientos laterales fuertes. Ubicación: Perpendicular a la línea de la fibra.", imagePath: "ANCHOR STORM.png" },
-                guy_down: { title: "Down Guy (Retenida a Tierra)", description: "El cable baja directamente del poste a un anclaje en el suelo. Es el método de instalación más común y resistente para contrarrestar las fuerzas laterales en el despliegue de postes.", imagePath: "DOWN GUY ANCHOR.png" },
-                guy_overhead: { title: "Overhead Guy (Retenida Aérea)", description: "Si no hay espacio en la acera para el anclaje, el cable de acero cruza la calle hacia otro poste (poste de apoyo) y de ahí baja a tierra.", imagePath: "OVERHEAD ANCHOR.png" }
+                riserpole: { title: "Riser (Transición)", description: "Poste especializado para gestionar el cambio de entorno del cable (Aéreo a Subterráneo). Incluye un conducto (Tubo Riser) de acero galvanizado o PVC reforzado para salvaguardar la integridad de la fibra desde el suelo hasta la corona del poste.", imagePath: "RISER POLE.png" },
+                anchor_terminal: { title: "Terminal Down Guy (Dead-end guy)", description: "Es un cable tensor que baja desde el poste hacia el suelo, anclado a una varilla (anchor rod), para absorber la tensión del cable aéreo. Se utiliza al final de una línea o en el poste donde termina el despliegue. Función: Compensar la tensión total del cable que 'tira' hacia un solo lado. Ubicación: Se coloca exactamente en dirección opuesta a la salida del cable.", imagePath: "DEAD END ANCHOR.png" },
+                anchor_tempestad: { title: "Angle Down Guy", description: "Se usa cuando la linea hace un cambio de dirección (ángulo). El guy se instala hacia el lado contrario de la tension para igualar las fuerzas.", imagePath: "Angle DG.png" },
+                guy_down: { title: "Span / Tangent Down Guy", description: "El cable baja directamente del poste a un anclaje en el suelo. Es el método de instalación más común y resistente para contrarrestar el efecto dominó que pueda presentar el poste por las cargas extras, sin embargo, no siempre es necesario en lineas rectas.", imagePath: "Span DG.png" },
+                guy_overhead: { title: "Double Down Guy", description: "Similar al resto de down guy, sin embargo, ahora son dos cables a tierra desde el mismo poste, esto es comunmente usado para cargas muy altas, como multiples cables, equipos pesados o angulos cerrados", imagePath: "Double DG.png" },
+                overhead_guy_item: { title: "Overhead Guy", description: "Si no hay espacio en la acera para el anclaje, el cable de acero cruza la calle hacia otro poste (poste de apoyo) y de ahí baja a tierra.", imagePath: "OVERHEAD ANCHOR.png" }
             },
             en: {
                 unifamiliares: { title: "Single-Family Homes", description: "Identification of individual housing units. In the design, strictly one unit per individual cadastral lot is counted. This allows for sizing the capacity of distribution closures and planning core occupancy in the secondary network.", imagePath: "casas unifamiliares.png" },
@@ -532,6 +537,7 @@
                 centros: { title: "Shopping Centers", description: "Dimensioned unit by active commercial unit. The golden rule in design is to leave a 20-30% technical reserve for future businesses or high-demand corporate services (dedicated symmetrical links).", imagePath: "cc.png" },
                 relevamiento: { title: "Field Survey", description: "Process of exhaustive identification of each pole by material (concrete, wood, steel), free height, and use (electrical, telecom). It is vital to mark critical 'Handicaps': high-traffic avenue crossings, medium/high voltage lines requiring regulatory safety distances, and difficult access zones.", imagePath: "relevamiento.png" },
                 demanda: { title: "Demand Calculation", description: "Technical zoning of the territory through polygons that group between 200 and 500 HPs per FDH cabinet. This analysis allows for balancing cabinet load, optimizing OLT port usage, and ensuring the maximum fiber distance doesn't degrade the allowed optical budget (ONT sensitivity).", imagePath: "calculo de demanda.png" },
+                hp_grouping: { title: "Cluster NAP", description: "Units to be connected under the same access point are grouped together; this grouping depends on the OTE capacity, the take rate and the street morphology. This grouping is done to maximize OTE usage, considering its location to deploy the minimum amount of drop and the path to the end user is as direct as possible, without forgetting the future network topology for the OTE connection.", imagePath: "calculo de demanda.png" },
                 bus: { title: "BUS Topology", description: "Uses a cable as a common bus; one end is connected to the PON port and the other extends to users. Each user terminal is directly connected to the fiber optic bus through OTEs and these in turn, to a splitter, which derives the light beam as appropriate.", imagePath: "bus.png" },
                 estrella: { title: "Star Topology", description: "Tree-like structure with two hierarchical levels. Adds an active node between the provider OLT and the subscriber. Facilitates fault segregation and simplifies maintenance and audit tasks in high urban density areas.", imagePath: "topologia estrella.png" },
                 fsa: { title: "FSA Separation", description: "(Fiber Service Area) Technical zoning of the territory is performed to avoid infrastructure overlaps, considering utility entries and exits for each zone to make the separation as adequate as possible. Each FSA is served by a single FDH.", imagePath: "SEPARACION DE FSA.png" },
@@ -542,15 +548,16 @@
                 fiber_distribution: { title: "Medium-Capacity Fibers (Distribution)", description: "Branching from main splice closures to different streets or sectors. Common capacities: 48, 72, and 96 cores. Sized to cover the total demand of Home Passed within their geographical influence area.", imagePath: "distribucion.png" },
                 fiber_drop: { title: "Service Line (Drop)", description: "Final 1 or 2-core cable connecting the NAP/OTE box to the customer ONT. Uses bend-insensitive fibers (G.657.A2). In aerial deployments, it must be self-supporting to withstand environmental stresses.", imagePath: "drop.png" },
                 manholes: { title: "Manholes (Chambers)", description: "Large reinforced concrete chambers (e.g., 120x120x120cm) installed at trunk confluence points. Located at main nodes, direction changes for high-capacity Feeder cables, and Central Office entrances. Must allow for splice closure supports and cable coils installation.", imagePath: "MH.png" },
-                handholes: { title: "Handholes (HH) - Pass Boxes", description: "Smaller pass boxes located on sidewalks. Designed to house distribution cable reserves and local splice closures. Strategic placement facilitates technical access for preventive maintenance without heavy lifting equipment.", imagePath: "HH.png" },
-                flowerpots: { title: "Flower Pots (FP) - Micro-Pits", description: "Terminal micro-pits for underground networks. Usually installed at customer property lines. They serve as a transition between the distribution pipe and the service line micro-ducting (Drop). Protect the entry point to the subscriber's home.", imagePath: "FP.png" },
+                handholes: { title: "Handholes (HH) - Pass Boxes", description: "Smaller pass boxes located on sidewalks. Designed to house distribution cable reserves and local splices.", imagePath: "handholes.png" },
+                flowerpots: { title: "Flower Pots (FP) - Micro-Pits", description: "Terminal micro-pits for underground networks. Usually installed at customer property lines. They serve as a transition between the distribution pipe and the service line micro-ducting (Drop). Protect the entry point to the subscriber's home.", imagePath: "flowerpots.png" },
                 pole: { title: "Pole (Passage Pole)", description: "Basic component of infrastructure. Its primary function is to serve as support to maintain wiring at the regulated height in straight stretches where the fiber simply 'passes' from one point to another.", imagePath: "pole.png" },
                 droppole: { title: "Drop Pole (Interface Pole)", description: "Distribution or subscriber pole. It is the point where the network 'opens' to provide service. It is strategically located in front of homes or buildings so that the customer's drop cable length does not exceed 50-80 meters.", imagePath: "DROP POLE.png" },
-                riserpole: { title: "Riser Pole (Transition)", description: "Specialized pole for managing the change of cable environment (Aerial to Underground). Includes a galvanized steel or reinforced PVC riser conduit to safeguard fiber integrity from the ground to the pole crown.", imagePath: "RISER POLE.png" },
-                anchor_terminal: { title: "Terminal Anchor (Dead-end Anchor)", description: "Used at the end of a line or at the pole where the deployment terminates. Function: Compensate for the total cable tension pulling to one side only. Location: Placed exactly opposite to the cable's exit direction.", imagePath: "DEAD END ANCHOR.png" },
-                anchor_tempestad: { title: "Storm or Linear Anchor", description: "Placed in very long straight stretches (every 5 or 10 poles, depending on the area). Function: Avoid the 'domino effect' if a pole fails and stabilize the network against strong lateral winds. Location: Perpendicular to the fiber line.", imagePath: "ANCHOR STORM.png" },
-                guy_down: { title: "Down Guy (Ground Anchor)", description: "The cable goes directly from the pole to an anchor in the ground. It is the most common and resistant installation method to counteract lateral forces in pole deployment.", imagePath: "DOWN GUY ANCHOR.png" },
-                guy_overhead: { title: "Overhead Guy (Aerial Anchor)", description: "If there is no sidewalk space for the anchor, the steel cable crosses the street to another pole (support pole) and from there goes down to the ground.", imagePath: "OVERHEAD ANCHOR.png" }
+                riserpole: { title: "Riser (Transition)", description: "Specialized pole for managing the change of cable environment (Aerial to Underground). Includes a galvanized steel or reinforced PVC riser conduit to safeguard fiber integrity from the ground to the pole crown.", imagePath: "RISER POLE.png" },
+                anchor_terminal: { title: "Terminal Down Guy (Dead-end guy)", description: "Used at the end of a line or at the pole where the deployment terminates.", imagePath: "DEAD END ANCHOR.png" },
+                anchor_tempestad: { title: "Angle Down Guy", description: "used when the line changes direction (angle). the guy is installed towards the opposite side of the tension to balance the forces.", imagePath: "ANCHOR STORM.png" },
+                guy_down: { title: "Span / Tangent Down Guy", description: "Standard installation method to counteract lateral forces.", imagePath: "DOWN GUY ANCHOR.png" },
+                guy_overhead: { title: "Double Down Guy", description: "Similar to other down guys, but now with two ground cables from the same pole; commonly used for very high loads, multiple cables, or heavy equipment.", imagePath: "OVERHEAD ANCHOR.png" },
+                overhead_guy_item: { title: "Overhead Guy", description: "Crossing roads due to lack of space.", imagePath: "OVERHEAD ANCHOR.png" }
             }
         };
 
@@ -620,13 +627,14 @@
                     poles: [
                         ["Pole (Poste de Paso)", "Soporte en tramos rectos", "Mantener altura reglamentaria.", "pole"],
                         ["Drop Pole", "Interfaz de distribución", "Puntos NAP / OTE frente a hogares.", "droppole"],
-                        ["Riser Pole", "Transición de entorno", "Bajantes Aéreo a Subterráneo.", "riserpole"]
+                        ["Riser", "Transición de entorno", "Bajantes Aéreo a Subterráneo.", "riserpole"]
                     ],
                     anchors: [
-                        ["Anclaje Terminal (Dead-end)", "Compensación de tensión final.", "anchor_terminal"],
-                        ["Anclaje de Tempestad (Storm)", "Estabilización contra vientos laterales.", "anchor_tempestad"],
-                        ["Down Guy (A Tierra)", "Método estándar y más resistente.", "guy_down"],
-                        ["Overhead Guy (Aéreo)", "Cruce de vía por falta de espacio.", "guy_overhead"]
+                        ["Terminal Down Guy (Dead-end guy)", "Compensación de tensión final.", "anchor_terminal"],
+                        ["Angle Down Guy", "estabilización de tensiones angulares", "anchor_tempestad"],
+                        ["Span / Tangent Down Guy", "Para vanos largos o zonas con mucho viento", "guy_down"],
+                        ["Double Down Guy", "Dos cables a tierra para cargas muy altas.", "guy_overhead"],
+                        ["Overhead Guy", "Cruce de vía por falta de espacio.", "overhead_guy_item"]
                     ]
                 },
                 en: {
@@ -643,13 +651,14 @@
                     poles: [
                         ["Pole (Passage Pole)", "Support in straight stretches", "Maintain regulatory height.", "pole"],
                         ["Drop Pole", "Distribution Interface", "NAP / OTE points in front of homes.", "droppole"],
-                        ["Riser Pole", "Environment Transition", "Aerial to Underground downcomers.", "riserpole"]
+                        ["Riser", "Environment Transition", "Aerial to Underground downcomers.", "riserpole"]
                     ],
                     anchors: [
-                        ["Terminal Anchor (Dead-end)", "Final tension compensation.", "anchor_terminal"],
-                        ["Storm Anchor (Storm)", "Stabilization against lateral winds.", "anchor_tempestad"],
-                        ["Down Guy (To Ground)", "Standard and most resistant method.", "guy_down"],
-                        ["Overhead Guy (Aerial)", "Crossing roads due to lack of space.", "guy_overhead"]
+                        ["Terminal Down Guy (Dead-end guy)", "Final tension compensation.", "anchor_terminal"],
+                        ["Angle Down Guy", "angular tension stabilization", "anchor_tempestad"],
+                        ["Span / Tangent Down Guy", "For long spans or high wind areas", "guy_down"],
+                        ["Double Down Guy", "Two ground cables for very high loads.", "guy_overhead"],
+                        ["Overhead Guy", "Crossing roads due to lack of space.", "guy_overhead"]
                     ]
                 }
             };
